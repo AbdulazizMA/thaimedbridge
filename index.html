@@ -483,10 +483,15 @@
 
             nav ul {
                 gap: 1rem;
+                font-size: 0.9rem;
             }
 
             .hero-content h2 {
                 font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
             }
 
             .benefits-grid,
@@ -495,7 +500,115 @@
             }
 
             section {
-                padding: 4rem 0;
+                padding: 4rem 0 3rem 0;
+            }
+
+            h3 {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            /* Fix About section on mobile */
+            #about .section-content p {
+                font-size: 1rem;
+                line-height: 1.7;
+                text-align: left;
+                margin-bottom: 1.5rem;
+            }
+
+            /* Fix Why Partner section on mobile */
+            #why-partner .section-content p {
+                font-size: 1rem;
+                line-height: 1.7;
+                text-align: left;
+                margin-bottom: 2rem;
+            }
+
+            .benefit-card {
+                padding: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .benefit-card h4 {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .benefit-card p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            /* Fix approach section on mobile */
+            .step {
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .step-icon {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 1rem;
+            }
+
+            .step h4 {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .step p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            /* Contact form mobile fixes */
+            .contact-form {
+                padding: 0;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* Trust indicator mobile */
+            .trust-indicator {
+                margin-top: 2rem;
+                padding: 1rem;
+            }
+
+            .trust-indicator span {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h2 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            h3 {
+                font-size: 1.8rem;
+            }
+
+            .section-content p {
+                font-size: 0.95rem;
+            }
+
+            .benefit-card,
+            .step {
+                padding: 1.2rem;
             }
         }
     </style>
