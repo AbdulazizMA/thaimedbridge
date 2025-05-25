@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThaiMedBridge - Your Partner in Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #10B981;
+            --primary-dark: #059669;
+            --secondary: #3B82F6;
+            --accent: #F59E0B;
+            --dark: #111827;
+            --dark-lighter: #1F2937;
+            --gray: #6B7280;
+            --light-gray: #F3F4F6;
+            --white: #FFFFFF;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-3: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: var(--dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Modern Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(17, 24, 39, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            padding: 1rem 0;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-2);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%2310B981" fill-opacity="0.4"><circle cx="30" cy="30" r="4"/></g></g></svg>');
+        }
+
+        .hero-content {
+            text-align: center;
+            color: var(--white);
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            color: #CBD5E1;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: var(--gradient-2);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+        }
+
+        .trust-indicator {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .trust-indicator span {
+            display: block;
+            color: #CBD5E1;
+            margin-bottom: 1rem;
+        }
+
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .trust-logos svg {
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .trust-logos svg:hover {
+            opacity: 1;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        .floating-1 {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-2 {
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-3 {
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 4s;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        #about, #why-partner, #our-approach, #contact {
+            background: var(--white);
+        }
+
+        #about {
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        }
+
+        h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+        }
+
+        .section-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+
+        /* Why Partner Section */
+        #why-partner {
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        #why-partner h3 {
+            color: var(--white);
+        }
+
+        #why-partner p {
+            color: #CBD5E1;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            padding: 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .benefit-card h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Approach Section */
+        .approach-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-2);
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .step h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .step p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: var(--white);
+        }
+
+        #contact h3 {
+            color: var(--white);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            color: var(--white);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #94A3B8;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .form-success {
+            text-align: center;
+            padding: 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+        }
+
+        .form-success h4 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+
+            .benefits-grid,
+            .approach-steps {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="container">
+                <h1 class="logo">ThaiMedBridge</h1>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#why-partner">Why Partner</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="hero-bg"></div>
+        
+        <!-- Floating Elements -->
+        <div class="floating-element floating-1">
+            <div style="width: 100px; height: 100px; background: rgba(16, 185, 129, 0.1); border-radius: 50%; backdrop-filter: blur(10px);"></div>
+        </div>
+        <div class="floating-element floating-2">
+            <div style="width: 80px; height: 80px; background: rgba(59, 130, 246, 0.1); border-radius: 20px; backdrop-filter: blur(10px);"></div>
+        </div>
+        <div class="floating-element floating-3">
+            <div style="width: 60px; height: 60px; background: rgba(245, 158, 11, 0.1); border-radius: 50%; backdrop-filter: blur(10px);"></div>
+        </div>
+
+        <div class="container hero-content">
+            <h2>Connecting Thai Health Innovation to Saudi Arabia</h2>
+            <p>ThaiMedBridge is your trusted export partner, delivering premium health and wellness products from Thailand to the heart of the Saudi market.</p>
+            <a href="#why-partner" class="btn">
+                <span>Partner With Us</span>
+                <svg style="margin-left: 8px;" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+            
+            <div class="trust-indicator">
+                <span>Trusted by leading Thai suppliers</span>
+                <div class="trust-logos">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" fill="#10B981" opacity="0.3"/>
+                        <path d="M8 12l2 2l4-4" stroke="#10B981" stroke-width="2" fill="none"/>
+                    </svg>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                        <rect x="4" y="4" width="16" height="16" rx="4" fill="#10B981" opacity="0.3"/>
+                        <path d="M8 12l2 2l4-4" stroke="#10B981" stroke-width="2" fill="none"/>
+                    </svg>
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                        <ellipse cx="12" cy="12" rx="10" ry="6" fill="#10B981" opacity="0.3"/>
+                        <path d="M8 12l2 2l4-4" stroke="#10B981" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h3 class="fade-in">About ThaiMedBridge</h3>
+            <div class="section-content fade-in">
+                <p>Established for over a year, ThaiMedBridge is a Jeddah-based company dedicated to sourcing and exporting high-quality health and wellness products directly from Thai suppliers to the Saudi Arabian market. Our mission is to bridge the gap between Thailand's health innovation and Saudi Arabia's growing demand for premium wellness solutions. We pride ourselves on reliability, building strong, transparent partnerships, and fostering mutual growth.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="why-partner">
+        <div class="container">
+            <h3 class="fade-in">Why Partner With ThaiMedBridge?</h3>
+            <div class="section-content fade-in">
+                <p>ThaiMedBridge offers a strategic and reliable partnership for Thai suppliers looking to expand their reach into the burgeoning Saudi Arabian health and wellness market. By collaborating with us, you gain:</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <h4>Direct Market Access</h4>
+                    <p>We provide an established channel to introduce and distribute your products effectively in Jeddah and across Saudi Arabia.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <h4>Specialized Focus</h4>
+                    <p>Our expertise lies in understanding both the Thai product landscape and the Saudi consumer needs, ensuring your products are well-positioned.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <h4>Long-Term Growth</h4>
+                    <p>We are committed to building sustainable, long-term relationships that benefit both our suppliers and our business.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <h4>Market Expertise</h4>
+                    <p>Leverage our local knowledge for smoother market entry and distribution throughout the region.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <h4>Professional Standards</h4>
+                    <p>We operate with high standards of professionalism and business ethics, ensuring a trustworthy partnership.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <h4>Strategic Partnership</h4>
+                    <p>If you are a Thai supplier of quality health and wellness products, ThaiMedBridge is your ideal partner for success in Saudi Arabia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="our-approach">
+        <div class="container">
+            <h3 class="fade-in">Our Approach</h3>
+            <div class="section-content fade-in">
+                <p>We streamline the process of bringing your quality Thai health products to the Saudi Arabian market through a collaborative and efficient partnership.</p>
+            </div>
+            
+            <div class="approach-steps">
+                <div class="step fade-in">
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                    </div>
+                    <h4>Partnership & Sourcing</h4>
+                    <p>We establish direct, collaborative partnerships with premier Thai suppliers, ensuring a deep understanding of your products and upholding the highest quality standards.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 8h-3V4H3c-1.11 0-2 .89-2 2v11h2a3 3 0 0 0 3 3a3 3 0 0 0 3-3h6a3 3 0 0 0 3 3a3 3 0 0 0 3-3h2v-5l-3-4M6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m13 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                    </div>
+                    <h4>Seamless Market Entry</h4>
+                    <p>ThaiMedBridge expertly navigates the complexities of market entry, managing regulatory compliance and streamlined logistics for smooth importation into Saudi Arabia.</p>
+                </div>
+                <div class="step fade-in">
+                    <div class="step-icon">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                    </div>
+                    <h4>Targeted Distribution & Growth</h4>
+                    <p>We leverage our established distribution network across Saudi Arabia to ensure your products reach the right audience, fostering sustainable market growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h3 class="fade-in">Contact Us</h3>
+            <form id="contact-form" class="contact-form fade-in">
+                <div class="form-row">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required />
+                </div>
+                <div class="form-row">
+                    <input type="text" id="company" name="company" placeholder="Company Name" required />
+                </div>
+                <div class="form-row">
+                    <input type="email" id="email" name="email" placeholder="Email Address" required />
+                </div>
+                <div class="form-row">
+                    <input type="tel" id="phone" name="phone" placeholder="Phone Number (optional)" />
+                </div>
+                <div class="form-row">
+                    <textarea id="message" name="message" placeholder="How can we help you?" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Inquiry</button>
+            </form>
+            <div id="form-success" class="form-success" style="display:none;">
+                <h4>Thank you!</h4>
+                <p>Your inquiry has been received. We'll get in touch with you soon.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ThaiMedBridge. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(17, 24, 39, 0.95)';
+            } else {
+                header.style.background = 'rgba(17, 24, 39, 0.9)';
+            }
+        });
+
+        // Form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const form = this;
+            const successDiv = document.getElementById('form-success');
+            
+            // Hide form and show success message
+            form.style.display = 'none';
+            successDiv.style.display = 'block';
+            
+            // Reset form after 5 seconds
+            setTimeout(() => {
+                form.reset();
+                form.style.display = 'block';
+                successDiv.style.display = 'none';
+            }, 5000);
+        });
+
+        // Add loading animation to page
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
