@@ -232,6 +232,11 @@
             position: relative;
         }
 
+        /* Add proper spacing after fixed header */
+        #about {
+            padding-top: 8rem;
+        }
+
         #about, #why-partner, #our-approach, #contact {
             background: var(--white);
         }
@@ -501,6 +506,20 @@
 
             section {
                 padding: 4rem 0 3rem 0;
+            }
+
+            /* Fix header overlap on mobile */
+            #about {
+                padding-top: 6rem;
+            }
+
+            /* Make header smaller on mobile */
+            nav {
+                padding: 0.8rem 0;
+            }
+
+            .logo {
+                font-size: 1.5rem;
             }
 
             h3 {
