@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ThaiMedBridge - Your Partner in Health</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
     <style>
         * {
             margin: 0;
@@ -14,18 +18,29 @@
         :root {
             --primary: #10B981;
             --primary-dark: #059669;
+            --primary-light: #34D399;
             --secondary: #3B82F6;
+            --secondary-dark: #1D4ED8;
             --accent: #F59E0B;
-            --dark: #111827;
-            --dark-lighter: #1F2937;
-            --gray: #6B7280;
-            --light-gray: #F3F4F6;
+            --accent-light: #FCD34D;
+            --dark: #0F172A;
+            --dark-lighter: #1E293B;
+            --dark-medium: #334155;
+            --gray: #64748B;
+            --gray-light: #94A3B8;
+            --light-gray: #F1F5F9;
             --white: #FFFFFF;
             --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-2: linear-gradient(135deg, #10B981 0%, #059669 100%);
             --gradient-3: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            --gradient-hero: linear-gradient(135deg, #0F172A 0%, #1E293B 30%, #334155 70%, #475569 100%);
             --glass: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
         body {
@@ -34,6 +49,7 @@
             color: var(--dark);
             overflow-x: hidden;
             background: var(--dark);
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -42,16 +58,21 @@
             padding: 0 2rem;
         }
 
-        /* Modern Header */
+        /* Enhanced Header */
         header {
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
             backdrop-filter: blur(20px);
-            background: rgba(17, 24, 39, 0.9);
+            background: rgba(15, 23, 42, 0.95);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        header.scrolled {
+            background: rgba(15, 23, 42, 0.98);
+            box-shadow: var(--shadow-lg);
         }
 
         nav {
@@ -65,47 +86,60 @@
         }
 
         .logo {
+            font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
-            font-weight: 800;
+            font-weight: 700;
             background: var(--gradient-2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         nav a {
             color: var(--white);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            padding: 0.5rem 0;
         }
 
         nav a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
             background: var(--gradient-2);
-            transition: width 0.3s ease;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        nav a:hover {
+            color: var(--primary-light);
+            transform: translateY(-1px);
         }
 
         nav a:hover::after {
             width: 100%;
         }
 
-        /* Hero Section */
+        /* Enhanced Hero Section */
         #hero {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%);
+            background: var(--gradient-hero);
             display: flex;
             align-items: center;
             position: relative;
@@ -120,136 +154,263 @@
             height: 100%;
             opacity: 0.1;
             background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%2310B981" fill-opacity="0.4"><circle cx="30" cy="30" r="4"/></g></g></svg>');
+            animation: backgroundMove 20s ease-in-out infinite;
         }
 
         .hero-content {
             text-align: center;
             color: var(--white);
             z-index: 2;
-            animation: fadeInUp 1s ease;
+            animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero-content h2 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 700;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #FFFFFF 0%, #10B981 100%);
+            background: linear-gradient(135deg, #FFFFFF 0%, #10B981 50%, #34D399 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--primary-light);
+            margin-bottom: 1rem;
+            opacity: 0.9;
         }
 
         .hero-content p {
             font-size: 1.25rem;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
             color: #CBD5E1;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.7;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 1.2rem 2.5rem;
             background: var(--gradient-2);
             color: var(--white);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
             cursor: pointer;
             box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.4);
         }
 
-        .trust-indicator {
-            margin-top: 3rem;
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
             padding: 1.5rem;
             background: var(--glass);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            max-width: 400px;
+            min-width: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-light);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #CBD5E1;
+            margin-top: 0.5rem;
+        }
+
+        .trust-indicator {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
+            transition: all 0.3s ease;
+        }
+
+        .trust-indicator:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .trust-indicator span {
             display: block;
             color: #CBD5E1;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
         }
 
         .trust-logos {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 1.5rem;
+            align-items: center;
         }
 
         .trust-logos svg {
             opacity: 0.8;
-            transition: opacity 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .trust-logos svg:hover {
             opacity: 1;
+            transform: scale(1.1);
         }
 
-        /* Floating Elements */
+        /* Floating Elements Enhanced */
         .floating-element {
             position: absolute;
-            animation: floating 6s ease-in-out infinite;
+            animation: floating 8s ease-in-out infinite;
+            filter: blur(0.5px);
         }
 
         .floating-1 {
-            top: 20%;
-            left: 10%;
+            top: 15%;
+            left: 8%;
             animation-delay: 0s;
         }
 
         .floating-2 {
             top: 60%;
-            right: 15%;
-            animation-delay: 2s;
+            right: 10%;
+            animation-delay: 2.5s;
         }
 
         .floating-3 {
-            bottom: 20%;
-            left: 15%;
+            bottom: 25%;
+            left: 12%;
+            animation-delay: 5s;
+        }
+
+        .floating-4 {
+            top: 30%;
+            right: 25%;
+            animation-delay: 1.5s;
+        }
+
+        .floating-5 {
+            bottom: 40%;
+            right: 35%;
             animation-delay: 4s;
         }
 
-        /* Sections */
+        /* Enhanced Sections */
         section {
-            padding: 6rem 0;
+            padding: 8rem 0;
             position: relative;
         }
 
-        /* Add proper spacing after fixed header */
         #about {
-            padding-top: 8rem;
+            padding-top: 10rem;
+            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 50%, #CBD5E1 100%);
+            position: relative;
+            overflow: hidden;
         }
 
-        #about, #why-partner, #our-approach, #contact {
-            background: var(--white);
+        #about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
         }
 
-        #about {
-            background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%);
+        #why-partner {
+            background: var(--dark);
+            color: var(--white);
+            position: relative;
+        }
+
+        #why-partner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23334155" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.1;
+        }
+
+        #our-approach {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
         }
 
         h3 {
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
             color: var(--dark);
             position: relative;
         }
@@ -257,85 +418,124 @@
         h3::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
+            width: 80px;
             height: 4px;
             background: var(--gradient-2);
             border-radius: 2px;
         }
 
+        #why-partner h3,
+        #contact h3 {
+            color: var(--white);
+        }
+
         .section-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
 
         .section-content p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             line-height: 1.8;
             color: var(--gray);
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
-        /* Why Partner Section */
-        #why-partner {
-            background: var(--dark);
-            color: var(--white);
-        }
-
-        #why-partner h3 {
-            color: var(--white);
-        }
-
-        #why-partner p {
+        #why-partner .section-content p {
             color: #CBD5E1;
         }
 
+        /* Enhanced Benefits Grid */
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
         }
 
         .benefit-card {
-            padding: 2rem;
+            padding: 2.5rem;
             background: var(--glass);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            transition: all 0.3s ease;
+            border-radius: 25px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover::before {
+            transform: scaleX(1);
         }
 
         .benefit-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .benefit-card h4 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            color: var(--primary);
+            color: var(--primary-light);
         }
 
-        /* Approach Section */
+        .benefit-card p {
+            color: #CBD5E1;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Enhanced Approach Steps */
         .approach-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
         }
 
         .step {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
             background: var(--white);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            border-radius: 25px;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
@@ -346,69 +546,187 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 4px;
+            height: 6px;
             background: var(--gradient-2);
         }
 
         .step:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-xl);
         }
 
-        .step-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1.5rem;
+        .step-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 40px;
+            height: 40px;
             background: var(--gradient-2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--white);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .step-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background: var(--gradient-2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step-icon::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--primary-light);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-icon {
+            transform: scale(1.1);
+        }
+
+        .step:hover .step-icon::after {
+            opacity: 1;
+            transform: scale(1.1);
         }
 
         .step h4 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             color: var(--dark);
         }
 
         .step p {
             color: var(--gray);
-            line-height: 1.6;
+            line-height: 1.7;
+            font-size: 1rem;
         }
 
-        /* Contact Section */
+        /* Enhanced Contact Section */
         #contact {
-            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            background: var(--gradient-hero);
             color: var(--white);
+            position: relative;
+            overflow: hidden;
         }
 
-        #contact h3 {
+        #contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%2310B981" fill-opacity="0.1"><circle cx="30" cy="30" r="2"/></g></g></svg>');
+            animation: backgroundMove 25s ease-in-out infinite reverse;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            padding: 2rem 0;
+        }
+
+        .contact-info h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-light);
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #CBD5E1;
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            space-y: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--glass);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .contact-item-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--white);
         }
 
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 3rem;
         }
 
         .form-row {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
         .contact-form input,
         .contact-form textarea {
             width: 100%;
-            padding: 1rem 1.5rem;
-            background: var(--glass);
+            padding: 1.2rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            border: 2px solid transparent;
             border-radius: 15px;
             color: var(--white);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
         }
 
         .contact-form input::placeholder,
@@ -420,38 +738,81 @@
         .contact-form textarea:focus {
             outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
         }
 
         .form-success {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem;
             background: var(--glass);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 25px;
         }
 
         .form-success h4 {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            color: var(--primary-light);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
         }
 
-        /* Footer */
+        .form-success p {
+            color: #CBD5E1;
+            font-size: 1.1rem;
+        }
+
+        /* Enhanced Footer */
         footer {
             background: var(--dark);
             color: var(--white);
             text-align: center;
-            padding: 2rem 0;
+            padding: 3rem 0;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
-        /* Animations */
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h5 {
+            color: var(--primary-light);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            color: #64748B;
+        }
+
+        /* Enhanced Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(50px);
             }
             to {
                 opacity: 1;
@@ -461,23 +822,86 @@
 
         @keyframes floating {
             0%, 100% {
-                transform: translateY(0px);
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(2deg);
             }
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-10px) rotate(-1deg);
+            }
+            75% {
+                transform: translateY(-15px) rotate(1deg);
             }
         }
 
-        /* Scroll Animations */
+        @keyframes backgroundMove {
+            0%, 100% {
+                transform: translateX(0) translateY(0);
+            }
+            25% {
+                transform: translateX(10px) translateY(-10px);
+            }
+            50% {
+                transform: translateX(-5px) translateY(-20px);
+            }
+            75% {
+                transform: translateX(-10px) translateY(-5px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Scroll Animations Enhanced */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
         /* Mobile Responsive */
@@ -641,6 +1065,7 @@
                 <ul>
                     <li><a href="#about">About Us</a></li>
                     <li><a href="#why-partner">Why Partner</a></li>
+                    <li><a href="#our-approach">Our Approach</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -650,40 +1075,72 @@
     <section id="hero">
         <div class="hero-bg"></div>
         
-        <!-- Floating Elements -->
+        <!-- Enhanced Floating Elements -->
         <div class="floating-element floating-1">
-            <div style="width: 100px; height: 100px; background: rgba(16, 185, 129, 0.1); border-radius: 50%; backdrop-filter: blur(10px);"></div>
+            <div style="width: 120px; height: 120px; background: rgba(16, 185, 129, 0.15); border-radius: 50%; backdrop-filter: blur(15px); border: 1px solid rgba(16, 185, 129, 0.3);"></div>
         </div>
         <div class="floating-element floating-2">
-            <div style="width: 80px; height: 80px; background: rgba(59, 130, 246, 0.1); border-radius: 20px; backdrop-filter: blur(10px);"></div>
+            <div style="width: 100px; height: 100px; background: rgba(59, 130, 246, 0.15); border-radius: 25px; backdrop-filter: blur(15px); border: 1px solid rgba(59, 130, 246, 0.3);"></div>
         </div>
         <div class="floating-element floating-3">
-            <div style="width: 60px; height: 60px; background: rgba(245, 158, 11, 0.1); border-radius: 50%; backdrop-filter: blur(10px);"></div>
+            <div style="width: 80px; height: 80px; background: rgba(245, 158, 11, 0.15); border-radius: 50%; backdrop-filter: blur(15px); border: 1px solid rgba(245, 158, 11, 0.3);"></div>
+        </div>
+        <div class="floating-element floating-4">
+            <div style="width: 60px; height: 60px; background: rgba(16, 185, 129, 0.2); border-radius: 15px; backdrop-filter: blur(10px);"></div>
+        </div>
+        <div class="floating-element floating-5">
+            <div style="width: 90px; height: 90px; background: rgba(139, 92, 246, 0.15); border-radius: 50%; backdrop-filter: blur(12px);"></div>
         </div>
 
         <div class="container hero-content">
+            <div class="hero-subtitle">🇹🇭 → 🇸🇦</div>
             <h2>Connecting Thai Health Innovation to Saudi Arabia</h2>
-            <p>ThaiMedBridge is your trusted export partner, delivering premium health and wellness products from Thailand to the heart of the Saudi market.</p>
-            <a href="#why-partner" class="btn">
-                <span>Partner With Us</span>
-                <svg style="margin-left: 8px;" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </a>
+            <p>ThaiMedBridge is your trusted export partner, delivering premium health and wellness products from Thailand's finest suppliers to the heart of the Saudi market with unmatched reliability and expertise.</p>
+            
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 3rem;">
+                <a href="#why-partner" class="btn">
+                    <span>Partner With Us</span>
+                    <svg style="margin-left: 8px;" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <span>Get In Touch</span>
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item scale-in">
+                    <span class="stat-number">1+</span>
+                    <span class="stat-label">Years of Excellence</span>
+                </div>
+                <div class="stat-item scale-in">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Quality Assured</span>
+                </div>
+                <div class="stat-item scale-in">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support Available</span>
+                </div>
+            </div>
             
             <div class="trust-indicator">
-                <span>Trusted by leading Thai suppliers</span>
+                <span>Trusted by leading Thai suppliers & Saudi distributors</span>
                 <div class="trust-logos">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                         <circle cx="12" cy="12" r="10" fill="#10B981" opacity="0.3"/>
                         <path d="M8 12l2 2l4-4" stroke="#10B981" stroke-width="2" fill="none"/>
                     </svg>
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                         <rect x="4" y="4" width="16" height="16" rx="4" fill="#10B981" opacity="0.3"/>
                         <path d="M8 12l2 2l4-4" stroke="#10B981" stroke-width="2" fill="none"/>
                     </svg>
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                         <ellipse cx="12" cy="12" rx="10" ry="6" fill="#10B981" opacity="0.3"/>
+                        <path d="M8 12l2 2l4-4" stroke="#10B981" stroke-width="2" fill="none"/>
+                    </svg>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                        <polygon points="12,2 15,9 22,9 17,14 18,21 12,17 6,21 7,14 2,9 9,9" fill="#10B981" opacity="0.3"/>
                         <path d="M8 12l2 2l4-4" stroke="#10B981" stroke-width="2" fill="none"/>
                     </svg>
                 </div>
@@ -695,7 +1152,9 @@
         <div class="container">
             <h3 class="fade-in">About ThaiMedBridge</h3>
             <div class="section-content fade-in">
-                <p>Established for over a year, ThaiMedBridge is a Jeddah-based company dedicated to sourcing and exporting high-quality health and wellness products directly from Thai suppliers to the Saudi Arabian market. Our mission is to bridge the gap between Thailand's health innovation and Saudi Arabia's growing demand for premium wellness solutions. We pride ourselves on reliability, building strong, transparent partnerships, and fostering mutual growth.</p>
+                <p>Established for over a year, ThaiMedBridge is a Jeddah-based company dedicated to sourcing and exporting high-quality health and wellness products directly from Thai suppliers to the Saudi Arabian market.</p>
+                <p>Our mission is to bridge the gap between Thailand's renowned health innovation and Saudi Arabia's growing demand for premium wellness solutions. We pride ourselves on reliability, building strong, transparent partnerships, and fostering mutual growth between Thai suppliers and Saudi distributors.</p>
+                <p>With deep understanding of both markets, regulatory requirements, and cultural nuances, we ensure seamless business operations that benefit all stakeholders in the health and wellness ecosystem.</p>
             </div>
         </div>
     </section>
@@ -704,33 +1163,39 @@
         <div class="container">
             <h3 class="fade-in">Why Partner With ThaiMedBridge?</h3>
             <div class="section-content fade-in">
-                <p>ThaiMedBridge offers a strategic and reliable partnership for Thai suppliers looking to expand their reach into the burgeoning Saudi Arabian health and wellness market. By collaborating with us, you gain:</p>
+                <p>ThaiMedBridge offers a strategic and reliable partnership for Thai suppliers looking to expand their reach into the burgeoning Saudi Arabian health and wellness market. By collaborating with us, you gain access to unparalleled market expertise and established distribution networks.</p>
             </div>
             
             <div class="benefits-grid">
-                <div class="benefit-card fade-in">
+                <div class="benefit-card fade-in-left">
+                    <div class="benefit-icon">🎯</div>
                     <h4>Direct Market Access</h4>
-                    <p>We provide an established channel to introduce and distribute your products effectively in Jeddah and across Saudi Arabia.</p>
+                    <p>We provide an established channel to introduce and distribute your products effectively in Jeddah and across Saudi Arabia, eliminating market entry barriers.</p>
                 </div>
                 <div class="benefit-card fade-in">
+                    <div class="benefit-icon">🔬</div>
                     <h4>Specialized Focus</h4>
-                    <p>Our expertise lies in understanding both the Thai product landscape and the Saudi consumer needs, ensuring your products are well-positioned.</p>
+                    <p>Our expertise lies in understanding both the Thai product landscape and the Saudi consumer needs, ensuring your products are perfectly positioned for success.</p>
                 </div>
-                <div class="benefit-card fade-in">
+                <div class="benefit-card fade-in-right">
+                    <div class="benefit-icon">📈</div>
                     <h4>Long-Term Growth</h4>
-                    <p>We are committed to building sustainable, long-term relationships that benefit both our suppliers and our business.</p>
+                    <p>We are committed to building sustainable, long-term relationships that benefit both our suppliers and our business, ensuring mutual prosperity.</p>
                 </div>
-                <div class="benefit-card fade-in">
+                <div class="benefit-card fade-in-left">
+                    <div class="benefit-icon">🌍</div>
                     <h4>Market Expertise</h4>
-                    <p>Leverage our local knowledge for smoother market entry and distribution throughout the region.</p>
+                    <p>Leverage our deep local knowledge and cultural understanding for smoother market entry and effective distribution throughout the region.</p>
                 </div>
                 <div class="benefit-card fade-in">
+                    <div class="benefit-icon">⭐</div>
                     <h4>Professional Standards</h4>
-                    <p>We operate with high standards of professionalism and business ethics, ensuring a trustworthy partnership.</p>
+                    <p>We operate with the highest standards of professionalism and business ethics, ensuring a trustworthy and reliable partnership experience.</p>
                 </div>
-                <div class="benefit-card fade-in">
+                <div class="benefit-card fade-in-right">
+                    <div class="benefit-icon">🤝</div>
                     <h4>Strategic Partnership</h4>
-                    <p>If you are a Thai supplier of quality health and wellness products, ThaiMedBridge is your ideal partner for success in Saudi Arabia.</p>
+                    <p>If you are a Thai supplier of quality health and wellness products, ThaiMedBridge is your ideal partner for sustainable success in Saudi Arabia.</p>
                 </div>
             </div>
         </div>
@@ -740,36 +1205,39 @@
         <div class="container">
             <h3 class="fade-in">Our Approach</h3>
             <div class="section-content fade-in">
-                <p>We streamline the process of bringing your quality Thai health products to the Saudi Arabian market through a collaborative and efficient partnership.</p>
+                <p>We streamline the process of bringing your quality Thai health products to the Saudi Arabian market through a collaborative, efficient, and transparent partnership approach that ensures success at every step.</p>
             </div>
             
             <div class="approach-steps">
-                <div class="step fade-in">
+                <div class="step fade-in-left">
+                    <div class="step-number">1</div>
                     <div class="step-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
                     </div>
                     <h4>Partnership & Sourcing</h4>
-                    <p>We establish direct, collaborative partnerships with premier Thai suppliers, ensuring a deep understanding of your products and upholding the highest quality standards.</p>
+                    <p>We establish direct, collaborative partnerships with premier Thai suppliers, ensuring a deep understanding of your products and upholding the highest quality standards throughout our relationship.</p>
                 </div>
                 <div class="step fade-in">
+                    <div class="step-number">2</div>
                     <div class="step-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20 8h-3V4H3c-1.11 0-2 .89-2 2v11h2a3 3 0 0 0 3 3a3 3 0 0 0 3-3h6a3 3 0 0 0 3 3a3 3 0 0 0 3-3h2v-5l-3-4M6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5m13 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
                         </svg>
                     </div>
                     <h4>Seamless Market Entry</h4>
-                    <p>ThaiMedBridge expertly navigates the complexities of market entry, managing regulatory compliance and streamlined logistics for smooth importation into Saudi Arabia.</p>
+                    <p>ThaiMedBridge expertly navigates the complexities of market entry, managing regulatory compliance, documentation, and streamlined logistics for smooth importation into Saudi Arabia.</p>
                 </div>
-                <div class="step fade-in">
+                <div class="step fade-in-right">
+                    <div class="step-number">3</div>
                     <div class="step-icon">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                        <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                         </svg>
                     </div>
                     <h4>Targeted Distribution & Growth</h4>
-                    <p>We leverage our established distribution network across Saudi Arabia to ensure your products reach the right audience, fostering sustainable market growth.</p>
+                    <p>We leverage our established distribution network across Saudi Arabia to ensure your products reach the right audience, fostering sustainable market growth and brand recognition.</p>
                 </div>
             </div>
         </div>
@@ -778,38 +1246,120 @@
     <section id="contact">
         <div class="container">
             <h3 class="fade-in">Contact Us</h3>
-            <form id="contact-form" class="contact-form fade-in" name="contact" netlify netlify-honeypot="bot-field">
-                <input type="hidden" name="form-name" value="contact" />
-                <p style="display:none">
-                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                </p>
-                <div class="form-row">
-                    <input type="text" id="name" name="name" placeholder="Your Name" required />
+            <div class="contact-container">
+                <div class="contact-info fade-in-left">
+                    <h4>Let's Start Your Journey</h4>
+                    <p>Ready to expand your Thai health products into the Saudi market? We're here to make it happen. Get in touch with our team to discuss your partnership opportunities and learn how we can help you succeed.</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <strong>Location</strong><br>
+                                Jeddah, Saudi Arabia
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <strong>Email</strong><br>
+                                info@thaimedbridge.com
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-item-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <strong>Response Time</strong><br>
+                                Within 24 hours
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <input type="text" id="company" name="company" placeholder="Company Name" required />
+                
+                <div class="fade-in-right">
+                    <form id="contact-form" class="contact-form" name="contact" netlify netlify-honeypot="bot-field">
+                        <input type="hidden" name="form-name" value="contact" />
+                        <p style="display:none">
+                            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                        </p>
+                        
+                        <div class="form-group">
+                            <div class="form-row">
+                                <input type="text" id="name" name="name" placeholder="Your Name" required />
+                            </div>
+                            <div class="form-row">
+                                <input type="text" id="company" name="company" placeholder="Company Name" required />
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="form-row">
+                                <input type="email" id="email" name="email" placeholder="Email Address" required />
+                            </div>
+                            <div class="form-row">
+                                <input type="tel" id="phone" name="phone" placeholder="Phone Number (optional)" />
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <textarea id="message" name="message" placeholder="Tell us about your products and partnership goals..." rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn" style="width: 100%;">
+                            <span>Send Inquiry</span>
+                            <svg style="margin-left: 8px;" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </form>
+                    
+                    <div id="form-success" class="form-success" style="display:none;">
+                        <h4>Thank you!</h4>
+                        <p>Your inquiry has been received. We'll get in touch with you within 24 hours to discuss your partnership opportunities.</p>
+                    </div>
                 </div>
-                <div class="form-row">
-                    <input type="email" id="email" name="email" placeholder="Email Address" required />
-                </div>
-                <div class="form-row">
-                    <input type="tel" id="phone" name="phone" placeholder="Phone Number (optional)" />
-                </div>
-                <div class="form-row">
-                    <textarea id="message" name="message" placeholder="How can we help you?" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="btn">Send Inquiry</button>
-            </form>
-            <div id="form-success" class="form-success" style="display:none;">
-                <h4>Thank you!</h4>
-                <p>Your inquiry has been received. We'll get in touch with you soon.</p>
             </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>&copy; 2024 ThaiMedBridge. All Rights Reserved.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h5>ThaiMedBridge</h5>
+                    <p>Connecting Thai health innovation to Saudi Arabia with trust, expertise, and excellence.</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Services</h5>
+                    <p>Product Sourcing</p>
+                    <p>Market Entry</p>
+                    <p>Distribution</p>
+                    <p>Partnership Development</p>
+                </div>
+                <div class="footer-section">
+                    <h5>Markets</h5>
+                    <p>Thailand (Sourcing)</p>
+                    <p>Saudi Arabia (Distribution)</p>
+                    <p>GCC Region (Expansion)</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 ThaiMedBridge. All Rights Reserved. | Bridging Health, Building Futures</p>
+            </div>
         </div>
     </footer>
 
@@ -818,13 +1368,17 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
 
-        // Scroll animations
+        // Enhanced scroll animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -838,41 +1392,66 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in').forEach(el => {
+        // Observe all animation elements
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in').forEach(el => {
             observer.observe(el);
         });
 
-        // Header scroll effect
+        // Enhanced header scroll effect
+        let lastScrollY = window.scrollY;
+        const header = document.querySelector('header');
+
         window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(17, 24, 39, 0.95)';
+            const currentScrollY = window.scrollY;
+            
+            // Add scrolled class for styling
+            if (currentScrollY > 100) {
+                header.classList.add('scrolled');
             } else {
-                header.style.background = 'rgba(17, 24, 39, 0.9)';
+                header.classList.remove('scrolled');
             }
+
+            // Hide/show header on scroll
+            if (currentScrollY > lastScrollY && currentScrollY > 200) {
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                header.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
         });
 
-        // Form submission
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            // e.preventDefault(); // Allow Netlify to handle the submission
+        // Parallax effect for floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating-element');
             
-            // The following lines for custom success message display and form reset
-            // can be removed or kept if you plan to use Netlify's success page/redirect.
-            // For Netlify to fully take over, it's best to remove or comment them out.
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
 
-            // const form = this;
-            // const successDiv = document.getElementById('form-success');
+        // Form submission with enhanced UX
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            // Allow Netlify to handle the submission
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
             
-            // // Hide form and show success message
-            // form.style.display = 'none';
-            // successDiv.style.display = 'block';
+            // Show loading state
+            submitBtn.innerHTML = `
+                <svg style="margin-right: 8px; animation: spin 1s linear infinite;" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M21 12a9 9 0 11-6.219-8.56"/>
+                </svg>
+                <span>Sending...</span>
+            `;
+            submitBtn.disabled = true;
             
-            // // Reset form after 5 seconds
-            // setTimeout(() => {
-            //     form.reset();
-            //     form.style.display = 'block';
-            //     successDiv.style.display = 'none';
-            // }, 5000);
+            // Reset after a delay (Netlify will handle the actual submission)
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
         });
 
         // Add loading animation to page
@@ -883,6 +1462,193 @@
                 document.body.style.opacity = '1';
             }, 100);
         });
+
+        // Add CSS for spinning animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            
+            .contact-form input:focus,
+            .contact-form textarea:focus {
+                animation: inputFocus 0.3s ease;
+            }
+            
+            @keyframes inputFocus {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.02); }
+                100% { transform: scale(1); }
+            }
+            
+            .btn:active {
+                transform: translateY(-1px) scale(0.98);
+            }
+            
+            .benefit-card:nth-child(even) {
+                animation-delay: 0.2s;
+            }
+            
+            .step:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            
+            .step:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+            
+            .stat-item:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            
+            .stat-item:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add hover effects for interactive elements
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add typing effect to hero subtitle
+        const subtitle = document.querySelector('.hero-subtitle');
+        if (subtitle) {
+            const text = subtitle.textContent;
+            subtitle.textContent = '';
+            let i = 0;
+            
+            const typeWriter = () => {
+                if (i < text.length) {
+                    subtitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+        }
+
+        // Add counter animation for stats
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                const isNumber = !isNaN(target.replace(/[^0-9]/g, ''));
+                
+                if (isNumber) {
+                    const finalNumber = parseInt(target.replace(/[^0-9]/g, ''));
+                    const suffix = target.replace(/[0-9]/g, '');
+                    let current = 0;
+                    const increment = finalNumber / 30;
+                    
+                    const updateCounter = () => {
+                        if (current < finalNumber) {
+                            current += increment;
+                            counter.textContent = Math.ceil(current) + suffix;
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            counter.textContent = target;
+                        }
+                    };
+                    
+                    updateCounter();
+                }
+            });
+        };
+
+        // Trigger counter animation when stats come into view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.hero-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Add mobile menu functionality (if needed in future)
+        const createMobileMenu = () => {
+            const nav = document.querySelector('nav ul');
+            const mobileMenuBtn = document.createElement('button');
+            mobileMenuBtn.innerHTML = '☰';
+            mobileMenuBtn.style.cssText = `
+                display: none;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 1.5rem;
+                cursor: pointer;
+            `;
+            
+            // Add mobile menu styles
+            const mobileStyles = `
+                @media (max-width: 768px) {
+                    .mobile-menu-btn { display: block !important; }
+                    nav ul { 
+                        display: none;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        right: 0;
+                        background: rgba(15, 23, 42, 0.98);
+                        flex-direction: column;
+                        padding: 1rem;
+                        gap: 1rem;
+                    }
+                    nav ul.active { display: flex; }
+                }
+            `;
+            
+            const mobileStyleSheet = document.createElement('style');
+            mobileStyleSheet.textContent = mobileStyles;
+            document.head.appendChild(mobileStyleSheet);
+            
+            mobileMenuBtn.className = 'mobile-menu-btn';
+            mobileMenuBtn.addEventListener('click', () => {
+                nav.classList.toggle('active');
+            });
+            
+            document.querySelector('nav .container').appendChild(mobileMenuBtn);
+        };
+
+        // Initialize mobile menu
+        createMobileMenu();
+
+        // Add smooth reveal animation for sections
+        const revealSections = () => {
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const windowHeight = window.innerHeight;
+                const scrollTop = window.pageYOffset;
+                
+                if (scrollTop > sectionTop - windowHeight + 100) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Initialize section animations
+        window.addEventListener('scroll', revealSections);
+        revealSections(); // Run once on load
     </script>
 </body>
 </html>
